@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по информатике</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --success: #4caf50;
+            --danger: #f44336;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--primary);
+            font-weight: 300;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .question-title {
+            font-weight: 600;
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        .code {
+            background: #f0f4f8;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            display: inline-block;
+            margin: 5px 0;
+            border-left: 3px solid var(--accent);
+        }
+
+        .variants {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .variant {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .variant:hover {
+            background: #f0f4f8;
+            border-color: var(--primary);
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .answer-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+        }
+
+        #check-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        #check-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .explanation-btn {
+            display: block;
+            width: 150px;
+            margin: 15px auto 0;
+            padding: 8px 15px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .explanation-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-1px);
+        }
+
+        .correct {
+            border-left: 5px solid var(--success) !important;
+        }
+
+        .incorrect {
+            border-left: 5px solid var(--danger) !important;
+        }
+
+        .developer {
+            text-align: center;
+            margin-top: 40px;
+            color: #777;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .variants {
+                grid-template-columns: 1fr;
+            }
+
+            .question-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тест по информатике</h1>
+            <p class="subtitle">Проверьте свои знания по основам программирования</p>
+        </header>
+
+        <!-- Вопрос 1 -->
+        <div class="question-card" id="q1">
+            <div class="question-header">
+                <div class="question-number">1</div>
+                <h3 class="question-title">Перекодировка сообщения</h3>
+            </div>
+            <div class="question-text">
+                Автоматическое устройство осуществило перекодировку информационного сообщения на русском языке,
+                первоначально записанного в 16-битном коде Unicode, в 8-битную кодировку КОИ-8. При этом информационное
+                сообщение уменьшилось на 480 бит. Какова длина сообщения в символах?
+            </div>
+            <div class="variants">
+                <div class="variant">1) 30</div>
+                <div class="variant">2) 60</div>
+                <div class="variant">3) 120</div>
+                <div class="variant">4) 480</div>
+            </div>
+            <input id="a1" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 2 -->
+        <div class="question-card" id="q2">
+            <div class="question-header">
+                <div class="question-number">2</div>
+                <h3 class="question-title">Сложение числа и строки</h3>
+            </div>
+            <div class="question-text">
+                Что выведет следующий код? <br>
+                <span class="code">console.log(2 + "2");</span>
+            </div>
+            <div class="variants">
+                <div class="variant">1) 4</div>
+                <div class="variant">2) "22"</div>
+                <div class="variant">3) 22</div>
+                <div class="variant">4) Ошибка</div>
+            </div>
+            <input id="a2" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 3 -->
+        <div class="question-card" id="q3">
+            <div class="question-header">
+                <div class="question-number">3</div>
+                <h3 class="question-title">Методы массивов</h3>
+            </div>
+            <div class="question-text">
+                Какой метод массива изменяет исходный массив?
+            </div>
+            <div class="variants">
+                <div class="variant">1) map()</div>
+                <div class="variant">2) filter()</div>
+                <div class="variant">3) slice()</div>
+                <div class="variant">4) splice()</div>
+            </div>
+            <input id="a3" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 4 -->
+        <div class="question-card" id="q4">
+            <div class="question-header">
+                <div class="question-number">4</div>
+                <h3 class="question-title">Постфиксный инкремент</h3>
+            </div>
+            <div class="question-text">
+                Какой результат выполнения кода? <br>
+                <span class="code">let x = 5; let y = x++; console.log(y);</span>
+            </div>
+            <div class="variants">
+                <div class="variant">1) 5</div>
+                <div class="variant">2) 6</div>
+                <div class="variant">3) undefined</div>
+                <div class="variant">4) Ошибка</div>
+            </div>
+            <input id="a4" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 5 -->
+        <div class="question-card" id="q5">
+            <div class="question-header">
+                <div class="question-number">5</div>
+                <h3 class="question-title">Добавление в массив</h3>
+            </div>
+            <div class="question-text">
+                Какой метод используется для добавления элемента в конец массива?
+            </div>
+            <div class="variants">
+                <div class="variant">1) push()</div>
+                <div class="variant">2) pop()</div>
+                <div class="variant">3) shift()</div>
+                <div class="variant">4) unshift()</div>
+            </div>
+            <input id="a5" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 6 -->
+        <div class="question-card" id="q6">
+            <div class="question-header">
+                <div class="question-number">6</div>
+                <h3 class="question-title">Замыкания в JavaScript</h3>
+            </div>
+            <div class="question-text">
+                Что такое замыкание (closure) в JavaScript?
+            </div>
+            <div class="variants">
+                <div class="variant">1) Функция, которая возвращает другую функцию</div>
+                <div class="variant">2) Функция, которая имеет доступ к переменным из внешней функции даже после её завершения</div>
+                <div class="variant">3) Функция, которая вызывается сразу после объявления</div>
+                <div class="variant">4) Функция, которая не принимает аргументов</div>
+            </div>
+            <input id="a6" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 7 -->
+        <div class="question-card" id="q7">
+            <div class="question-header">
+                <div class="question-number">7</div>
+                <h3 class="question-title">Проверка типа</h3>
+            </div>
+            <div class="question-text">
+                Какой оператор используется для проверки типа переменной?
+            </div>
+            <div class="variants">
+                <div class="variant">1) type</div>
+                <div class="variant">2) typeof</div>
+                <div class="variant">3) instance</div>
+                <div class="variant">4) check</div>
+            </div>
+            <input id="a7" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 8 -->
+        <div class="question-card" id="q8">
+            <div class="question-header">
+                <div class="question-number">8</div>
+                <h3 class="question-title">Сравнение массивов</h3>
+            </div>
+            <div class="question-text">
+                Какой результат выполнения кода? <br>
+                <span class="code">console.log([] == ![]);</span>
+            </div>
+            <div class="variants">
+                <div class="variant">1) true</div>
+                <div class="variant">2) false</div>
+                <div class="variant">3) undefined</div>
+                <div class="variant">4) Ошибка</div>
+            </div>
+            <input id="a8" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 9 -->
+        <div class="question-card" id="q9">
+            <div class="question-header">
+                <div class="question-number">9</div>
+                <h3 class="question-title">Преобразование строки</h3>
+            </div>
+            <div class="question-text">
+                Какой метод используется для преобразования строки в число?
+            </div>
+            <div class="variants">
+                <div class="variant">1) toInt()</div>
+                <div class="variant">2) parseInt()</div>
+                <div class="variant">3) toNumber()</div>
+                <div class="variant">4) stringToNumber()</div>
+            </div>
+            <input id="a9" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <!-- Вопрос 10 -->
+        <div class="question-card" id="q10">
+            <div class="question-header">
+                <div class="question-number">10</div>
+                <h3 class="question-title">Сравнение NaN</h3>
+            </div>
+            <div class="question-text">
+                Какой результат выполнения кода? <br>
+                <span class="code">console.log(NaN === NaN);</span>
+            </div>
+            <div class="variants">
+                <div class="variant">1) true</div>
+                <div class="variant">2) false</div>
+                <div class="variant">3) undefined</div>
+                <div class="variant">4) Ошибка</div>
+            </div>
+            <input id="a10" type="text" class="answer-input" placeholder="Введите номер правильного ответа" />
+        </div>
+
+        <button id="check-btn" onclick="check()">Проверить ответы</button>
+        <div class="developer">
+            Разработчик: Малыхина Екатерина Евгеньевна
+        </div>
+    </div>
+
+    <script>
+        function check() {
+            // Вопрос 1
+            let q1 = document.getElementById('q1');
+            let a1 = document.getElementById('a1');
+            let explanation1 = document.getElementById('explanation1');
+            if (explanation1) explanation1.remove();
+            if (a1.value == '2') {
+                q1.classList.add('correct');
+                q1.classList.remove('incorrect');
+            } else {
+                q1.classList.add('incorrect');
+                q1.classList.remove('correct');
+                let button1 = document.createElement('button');
+                button1.className = 'explanation-btn';
+                button1.textContent = 'Объяснение';
+                button1.onclick = function() {
+                    alert('При перекодировке из 16-битного Unicode в 8-битную КОИ-8 каждый символ теряет 8 бит. Если сообщение уменьшилось на 480 бит, то количество символов = 480 / 8 = 60.');
+                };
+                button1.id = 'explanation1';
+                q1.after(button1);
+            }
+
+            // Вопрос 2
+            let q2 = document.getElementById('q2');
+            let a2 = document.getElementById('a2');
+            let explanation2 = document.getElementById('explanation2');
+            if (explanation2) explanation2.remove();
+            if (a2.value == '2') {
+                q2.classList.add('correct');
+                q2.classList.remove('incorrect');
+            } else {
+                q2.classList.add('incorrect');
+                q2.classList.remove('correct');
+                let button2 = document.createElement('button');
+                button2.className = 'explanation-btn';
+                button2.textContent = 'Объяснение';
+                button2.onclick = function() {
+                    alert('При сложении числа и строки число преобразуется в строку, происходит конкатенация.');
+                };
+                button2.id = 'explanation2';
+                q2.after(button2);
+            }
+
+            // Вопрос 3
+            let q3 = document.getElementById('q3');
+            let a3 = document.getElementById('a3');
+            let explanation3 = document.getElementById('explanation3');
+            if (explanation3) explanation3.remove();
+            if (a3.value == '4') {
+                q3.classList.add('correct');
+                q3.classList.remove('incorrect');
+            } else {
+                q3.classList.add('incorrect');
+                q3.classList.remove('correct');
+                let button3 = document.createElement('button');
+                button3.className = 'explanation-btn';
+                button3.textContent = 'Объяснение';
+                button3.onclick = function() {
+                    alert('Метод splice() изменяет исходный массив, удаляя, заменяя или добавляя элементы.');
+                };
+                button3.id = 'explanation3';
+                q3.after(button3);
+            }
+
+            // Вопрос 4
+            let q4 = document.getElementById('q4');
+            let a4 = document.getElementById('a4');
+            let explanation4 = document.getElementById('explanation4');
+            if (explanation4) explanation4.remove();
+            if (a4.value == '1') {
+                q4.classList.add('correct');
+                q4.classList.remove('incorrect');
+            } else {
+                q4.classList.add('incorrect');
+                q4.classList.remove('correct');
+                let button4 = document.createElement('button');
+                button4.className = 'explanation-btn';
+                button4.textContent = 'Объяснение';
+                button4.onclick = function() {
+                    alert('Оператор x++ возвращает значение переменной до инкремента, поэтому y будет равно 5.');
+                };
+                button4.id = 'explanation4';
+                q4.after(button4);
+            }
+
+            // Вопрос 5
+            let q5 = document.getElementById('q5');
+            let a5 = document.getElementById('a5');
+            let explanation5 = document.getElementById('explanation5');
+            if (explanation5) explanation5.remove();
+            if (a5.value == '1') {
+                q5.classList.add('correct');
+                q5.classList.remove('incorrect');
+            } else {
+                q5.classList.add('incorrect');
+                q5.classList.remove('correct');
+                let button5 = document.createElement('button');
+                button5.className = 'explanation-btn';
+                button5.textContent = 'Объяснение';
+                button5.onclick = function() {
+                    alert('Метод push() добавляет элемент в конец массива.');
+                };
+                button5.id = 'explanation5';
+                q5.after(button5);
+            }
+
+            // Вопрос 6
+            let q6 = document.getElementById('q6');
+            let a6 = document.getElementById('a6');
+            let explanation6 = document.getElementById('explanation6');
+            if (explanation6) explanation6.remove();
+            if (a6.value == '2') {
+                q6.classList.add('correct');
+                q6.classList.remove('incorrect');
+            } else {
+                q6.classList.add('incorrect');
+                q6.classList.remove('correct');
+                let button6 = document.createElement('button');
+                button6.className = 'explanation-btn';
+                button6.textContent = 'Объяснение';
+                button6.onclick = function() {
+                    alert('Замыкание — это функция, которая имеет доступ к переменным из внешней функции даже после её завершения.');
+                };
+                button6.id = 'explanation6';
+                q6.after(button6);
+            }
+
+            // Вопрос 7
+            let q7 = document.getElementById('q7');
+            let a7 = document.getElementById('a7');
+            let explanation7 = document.getElementById('explanation7');
+            if (explanation7) explanation7.remove();
+            if (a7.value == '2') {
+                q7.classList.add('correct');
+                q7.classList.remove('incorrect');
+            } else {
+                q7.classList.add('incorrect');
+                q7.classList.remove('correct');
+                let button7 = document.createElement('button');
+                button7.className = 'explanation-btn';
+                button7.textContent = 'Объяснение';
+                button7.onclick = function() {
+                    alert('Оператор typeof используется для проверки типа переменной.');
+                };
+                button7.id = 'explanation7';
+                q7.after(button7);
+            }
+
+            // Вопрос 8
+            let q8 = document.getElementById('q8');
+            let a8 = document.getElementById('a8');
+            let explanation8 = document.getElementById('explanation8');
+            if (explanation8) explanation8.remove();
+            if (a8.value == '1') {
+                q8.classList.add('correct');
+                q8.classList.remove('incorrect');
+            } else {
+                q8.classList.add('incorrect');
+                q8.classList.remove('correct');
+                let button8 = document.createElement('button');
+                button8.className = 'explanation-btn';
+                button8.textContent = 'Объяснение';
+                button8.onclick = function() {
+                    alert('[] == ![] преобразуется в "" == false, а затем в 0 == 0, что даёт true.');
+                };
+                button8.id = 'explanation8';
+                q8.after(button8);
+            }
+
+            // Вопрос 9
+            let q9 = document.getElementById('q9');
+            let a9 = document.getElementById('a9');
+            let explanation9 = document.getElementById('explanation9');
+            if (explanation9) explanation9.remove();
+            if (a9.value == '2') {
+                q9.classList.add('correct');
+                q9.classList.remove('incorrect');
+            } else {
+                q9.classList.add('incorrect');
+                q9.classList.remove('correct');
+                let button9 = document.createElement('button');
+                button9.className = 'explanation-btn';
+                button9.textContent = 'Объяснение';
+                button9.onclick = function() {
+                    alert('Метод parseInt() используется для преобразования строки в число.');
+                };
+                button9.id = 'explanation9';
+                q9.after(button9);
+            }
+
+            // Вопрос 10
+            let q10 = document.getElementById('q10');
+            let a10 = document.getElementById('a10');
+            let explanation10 = document.getElementById('explanation10');
+            if (explanation10) explanation10.remove();
+            if (a10.value == '2') {
+                q10.classList.add('correct');
+                q10.classList.remove('incorrect');
+            } else {
+                q10.classList.add('incorrect');
+                q10.classList.remove('correct');
+                let button10 = document.createElement('button');
+                button10.className = 'explanation-btn';
+                button10.textContent = 'Объяснение';
+                button10.onclick = function() {
+                    alert('NaN не равно ничему, даже самому себе, поэтому NaN === NaN возвращает false.');
+                };
+                button10.id = 'explanation10';
+                q10.after(button10);
+            }
+        }
+    </script>
+</body>
+</html>
